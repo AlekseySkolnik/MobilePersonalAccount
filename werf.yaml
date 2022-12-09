@@ -1,0 +1,6 @@
+project: cabinet
+configVersion: 1
+---
+image: ~
+dockerfile: Dockerfile
+context: .

@@ -1,25 +1,61 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using WebAPI.Infrastructure.HealthChecks;
+using WebAPI.Infrastructure.HealthChecks.Npgsql;
+using WebAPI.Infrastructure.JsonOptions;
+using WebAPI.Infrastructure.Metrics;
+using WebAPI.Infrastructure.Npgsql;
+using WebAPI.Infrastructure.RabbitMq;
+using WebAPI.Infrastructure.Serilog;
+using WebAPI.Infrastructure.Startup;
+using WebAPI.Infrastructure.Swagger;
+using WebAPI.Infrastructure.Tracing;
+using WebAPI.Middlewares;
 
-// Add services to the container.
+#pragma warning disable CA1852
+
+var builder = WebApplication.CreateBuilder(args)
+    .AddSerilog("cabinet")
+    .AddJsonOptions()
+    .AddHealthChecks(b =>
+        b.AddCheck<PostgresHealthCheck>("Postgres startup health check + connection pool init",
+            HealthStatus.Unhealthy, new[] { HealthCheckType.Startup }))
+    .AddRabbitMq()
+    .AddNpgsql();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddSwagger();
+
+builder
+    .AddMetrics()
+    .AddTracing("cabinet");
+
+//builder.Services
+//    .AddApplicationServices()
+//    .AddRepositories();
+
+builder.ValidateServiceProvider();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwaggerWithUi(app.Environment);
+
+app.UseRouting();
+app.UseDodoHttpMetrics();
+app.UseMiddleware<ErrorsMiddleware>();
+
+app.MapHealthCheckEndpoints();
+app.UseMetricsEndpoints();
+
+app.MapControllers().WithDisplayName(x =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    var descriptor = x.Metadata.OfType<ControllerActionDescriptor>().FirstOrDefault();
+    return descriptor != null
+        ? $"{descriptor.ControllerName}/{descriptor.ActionName}"
+        : x.DisplayName ?? string.Empty;
+});
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+app.FlushLogsOnShutdown()
+    .Run();

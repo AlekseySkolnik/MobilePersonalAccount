@@ -1,13 +1,13 @@
 using Infrastructure.Extensions;
+using Serilog;
 
 #pragma warning disable CA1852
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+var builder = WebApplication
+    .CreateBuilder(args)
+    .AddSerilog();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services
     .AddEndpointsApiExplorer()
     .AddSwagger();

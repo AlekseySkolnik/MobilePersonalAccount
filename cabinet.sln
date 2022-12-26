@@ -7,13 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "src\WebAPI\WebAPI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1809ED5D-3502-4FAA-B12B-EE3F9CD121A7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{BB63F41B-1477-44A5-9E6F-6134A8607F9B}"
-	ProjectSection(SolutionItems) = preProject
-		tools\docker-compose.yml = tools\docker-compose.yml
-		Dockerfile = Dockerfile
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2A658C65-594C-44C0-808F-C10F36F55779}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{AFB92799-E91D-4F8E-A441-78E39623448A}"

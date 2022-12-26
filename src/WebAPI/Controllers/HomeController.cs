@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebAPI.Controllers;
 
 [ApiController]
-[ApiVersion("1.0")]
 [Route("api/[controller]")]
 public class HomeController : ControllerBase
 {
@@ -17,6 +16,7 @@ public class HomeController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
+        _logger.LogInformation("Get request");
         return Ok(); 
     }
 }

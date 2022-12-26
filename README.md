@@ -18,3 +18,11 @@
 
 При снижении баланса меньше критической суммы сервис должен уведомлять мобильные устройства.
 Написать тесты, грамотно все залогировать, настроить трейсинг, метрики, подключить Polly
+
+
+Prometheus - http://localhost:9090/alerts?search=
+Метрики http://localhost:9100/metrics
+Grafana http://localhost:3000/d/rYdddlPWk/node-exporter-full?orgId=1&from=now-1h&to=now
+Jaeger http://localhost:16686/search
+Elastic http://localhost:9200/
+Kibana http://localhost:5601/app/discover

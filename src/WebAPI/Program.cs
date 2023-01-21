@@ -20,8 +20,8 @@ app.UseSwaggerWithUi();
 app.UseRouting();
 
 app.UseMiddleware<LogHttpContextMiddleware>(); // логируем через Scope http context
-app.UseMiddleware<RequestsMetricsMiddleware>();
 app.UseMiddleware<ErrorsMiddleware>(); // глобальный обработчик ошибок в виде Middleware (второй способ через ExceptionFilter) 
+app.UseMiddleware<RequestsMetricsMiddleware>();
 
 app.UseMetrics();
 app.MapControllers();

@@ -12,7 +12,7 @@ services:
   #   restart: on-failure
 
   postgres:
-    container_name: cabinet-postgreslq
+    container_name: cabinet-postgresql
     image: postgres:latest
     restart: always
     environment:

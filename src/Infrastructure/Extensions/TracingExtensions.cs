@@ -37,7 +37,7 @@ public static class TracingExtensions
                // .AddSource("MySqlConnector")
                // .AddSource("MassTransit")
                 .SetSampler(new TraceIdRatioBasedSampler(samplerProbability ?? 0.05))
-                .AddJaegerExporter();
+                .AddJaegerExporter(b => b.Endpoint = new Uri("http://localhost:16686"));
         });
 
         return builder;

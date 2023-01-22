@@ -17,7 +17,9 @@ public static class LoggerScopeExtensions
             ["Method"] = context.Request.Method,
             ["Host"] = context.Request.Host,
             ["Url"] = context.Request.Path + context.Request.QueryString,
+#pragma warning disable CA5394
             ["BeginScope"] = r.NextInt64()
+#pragma warning restore CA5394
         }.ToImmutableDictionary();
 
         Activity.Current?.AddBaggage("CorrelationId", correlationId);

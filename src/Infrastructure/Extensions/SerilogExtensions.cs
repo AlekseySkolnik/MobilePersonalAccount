@@ -1,18 +1,19 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Globalization;
+using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Elasticsearch;
 using Serilog.Sinks.Elasticsearch;
-using System.Globalization;
-using System.Reflection;
 using Serilog.Exceptions;
+using Serilog.Debugging;
 
 namespace Infrastructure.Extensions;
 
 public static class SerilogExtensions
 {
-    public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddSerilog(this WebApplicationBuilder builder, string serviceName)
     {
         if (builder == null) throw new ArgumentNullException(nameof(builder));
 
@@ -24,7 +25,7 @@ public static class SerilogExtensions
                     .Enrich.WithExceptionDetails()
                     .Enrich.WithMachineName()
                     .Enrich.WithProperty("Environment", hostingContext.HostingEnvironment.EnvironmentName)
-                    .Enrich.WithProperty("ServiceName", "Cabinet")
+                    .Enrich.WithProperty("ServiceName", serviceName)
                     .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
                     .WriteTo.Debug(formatProvider: CultureInfo.InvariantCulture)
                     .WriteTo.Elasticsearch(ConfigureElasticSink(hostingContext.Configuration,
@@ -52,5 +53,19 @@ public static class SerilogExtensions
         };
 #pragma warning restore CA1307 // Specify StringComparison for clarity
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
+    }
+
+    public static WebApplication FlushLogsOnShutdown(this WebApplication application)
+    {
+        if (application == null) throw new ArgumentNullException(nameof(application));
+
+        application.Lifetime.ApplicationStopped.Register(() =>
+            {
+                Log.CloseAndFlush();
+                SelfLog.Disable();
+            }
+        );
+
+        return application;
     }
 }

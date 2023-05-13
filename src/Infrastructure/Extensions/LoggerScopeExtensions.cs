@@ -10,16 +10,14 @@ public static class LoggerScopeExtensions
     public static IDisposable? BeginScopeWith<T>(this ILogger<T> logger, HttpContext context)
     {
         var correlationId = context.TraceIdentifier;
-        var r = new Random();
 
         var scope = new Dictionary<string, object>
         {
-            ["Method"] = context.Request.Method,
-            ["Host"] = context.Request.Host,
-            ["Url"] = context.Request.Path + context.Request.QueryString,
-#pragma warning disable CA5394
-            ["BeginScope"] = r.NextInt64()
-#pragma warning restore CA5394
+            ["Scope_Method"] = context.Request.Method,
+            ["Scope_Host"] = context.Request.Host,
+            ["Scope_Url"] = context.Request.Path + context.Request.QueryString,
+            ["Scope_Id"] = Guid.NewGuid(),
+            ["Scope_CorrelationId"] = correlationId
         }.ToImmutableDictionary();
 
         Activity.Current?.AddBaggage("CorrelationId", correlationId);

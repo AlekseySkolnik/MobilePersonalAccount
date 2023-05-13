@@ -1,16 +1,5 @@
 version: '3.9'
 services:
-  # webapi:
-  #   image: webapi
-  #   hostname: webapi
-  #   container_name: cabinet-webapi
-  #   build:
-  #     context: .
-  #     dockerfile: ../Dockerfile
-  #   ports:
-  #     - "5000:80"
-  #   restart: on-failure
-
   postgres:
     container_name: cabinet-postgresql
     image: postgres:latest
@@ -180,6 +169,17 @@ services:
       - '--storage.path=/etc/alertmanager/data'
     networks:
       - default
+
+#  webapi:
+#    image: webapi
+#    hostname: webapi
+#    container_name: cabinet-webapi
+#    build:
+#      context: .
+#      dockerfile: ../Dockerfile
+#    ports:
+#      - "32778:32778"
+#    restart: always
 
 networks:
   default:

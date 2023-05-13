@@ -7,7 +7,6 @@ using Serilog.Events;
 using Serilog.Formatting.Elasticsearch;
 using Serilog.Sinks.Elasticsearch;
 using Serilog.Exceptions;
-using Serilog.Debugging;
 
 namespace Infrastructure.Extensions;
 
@@ -53,19 +52,5 @@ public static class SerilogExtensions
         };
 #pragma warning restore CA1307 // Specify StringComparison for clarity
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-    }
-
-    public static WebApplication FlushLogsOnShutdown(this WebApplication application)
-    {
-        if (application == null) throw new ArgumentNullException(nameof(application));
-
-        application.Lifetime.ApplicationStopped.Register(() =>
-            {
-                Log.CloseAndFlush();
-                SelfLog.Disable();
-            }
-        );
-
-        return application;
     }
 }

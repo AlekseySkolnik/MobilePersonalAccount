@@ -12,18 +12,22 @@ public class LogsController : ControllerBase
     {
         _logger = logger;
     }
+    
+    [HttpGet]
+    public IActionResult Levels()
+    {
+        var ex = new InvalidCastException("Не смог привести тип int к типу string");
+
+        _logger.LogInformation("Обычный лог");
+        _logger.LogWarning("Внимание! Подозрительное значение");
+        _logger.LogError(ex, "Произошла ошибка. Смотри exception");
+        
+        return Ok();
+    }
 
     [HttpGet]
     public IActionResult Test()
     {
-        var ex = new InvalidCastException("Не смог привести тип int к типу string");
-
-        // Обычные логи
-        _logger.LogInformation("Обычный лог");
-        _logger.LogWarning("Внимание! Подозрительное значение");
-        _logger.LogError("Произошла ошибка");
-        _logger.LogError(ex, "Произошла ошибка. Смотри exception");
-
         var json = new
         {
             Text = $"Text_{DateTime.UtcNow.Millisecond}",
@@ -38,10 +42,11 @@ public class LogsController : ControllerBase
 
         _logger.LogInformation(
 #pragma warning disable CA2254
-            $"Обычное логирование с записью значения Text = {json.Text},  Date = {json.Date}, Amount = {json.Amount}");
+            $"Обычное логирование Text = {json.Text},  Date = {json.Date}, Amount = {json.Amount}");
 #pragma warning restore CA2254
+      
         _logger.LogInformation(
-            "Структурное логирование лог с записью значения Text = {Text}, Date = {Date}, Amount = {Amount}", json.Text,
+            "Структурное логирование Text = {Text}, Date = {Date}, Amount = {Amount}", json.Text,
             json.Date, json.Amount);
 
         return Ok();

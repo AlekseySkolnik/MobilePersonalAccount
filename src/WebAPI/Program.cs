@@ -28,8 +28,6 @@ builder
 
 var app = builder.Build();
 
-// app.UseCorrelationId(); -> что это и надо ли оно ?
-
 app.UseSwaggerWithUi();
 app.UseRouting();
 
@@ -50,4 +48,4 @@ app.MapControllers()
             : x.DisplayName ?? string.Empty;
     });
 
-app.FlushLogsOnShutdown().Run();
+app.Run();

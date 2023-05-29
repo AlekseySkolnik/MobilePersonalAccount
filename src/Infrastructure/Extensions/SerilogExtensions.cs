@@ -32,7 +32,7 @@ public static class SerilogExtensions
                     .WriteTo.Async(loggerSinkConfiguration =>
                         loggerSinkConfiguration.Console(
                             new ExceptionAsObjectJsonFormatter(renderMessage: true, inlineFields: true),
-                            standardErrorFromLevel: LogEventLevel.Warning))
+                            standardErrorFromLevel: LogEventLevel.Information))
                     .ReadFrom.Configuration(hostingContext.Configuration);
             });
 
@@ -44,7 +44,7 @@ public static class SerilogExtensions
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CA1307 // Specify StringComparison for clarity
         return new ElasticsearchSinkOptions(
-            new Uri(configuration["ElasticConfiguration:Uri"] ?? "http://localhost:9200"))
+            new Uri(configuration["ElasticConfiguration:Uri"] ?? "elasticsearch:9200"))
         {
             AutoRegisterTemplate = true,
             IndexFormat =

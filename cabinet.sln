@@ -11,8 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{253B5AC2-8564-4282-A87A-041B61C2B96A}"
 	ProjectSection(SolutionItems) = preProject
-		cabinet-tools\docker-compose.yml = cabinet-tools\docker-compose.yml
-		Dockerfile = Dockerfile
+		docker-compose.yml = docker-compose.yml
+		prometheus\prometheus.yml = prometheus\prometheus.yml
+		prometheus\alert.rules = prometheus\alert.rules
 	EndProjectSection
 EndProject
 Global

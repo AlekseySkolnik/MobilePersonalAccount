@@ -18,8 +18,11 @@ public static class SwaggerExtensions
                     Title = "Cabinet.WebApi"
                 });
 
-                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+                var assembly = Assembly.GetExecutingAssembly();
+                options.CustomSchemaIds(x => x.FullName);
+                var xmlFile = $"{assembly.GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
             });
     }
 

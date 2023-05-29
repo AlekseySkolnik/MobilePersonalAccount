@@ -26,8 +26,10 @@ builder
 // .AddApplicationServices() добавить потом регистрацию сервисов приложения
 // .AddRepositories(); добавить потом регистрацию репозиториев приложения
 
+builder.AddCors();
 var app = builder.Build();
 
+app.UseCors();
 app.UseSwaggerWithUi();
 app.UseRouting();
 

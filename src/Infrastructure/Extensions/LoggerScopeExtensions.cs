@@ -17,7 +17,7 @@ public static class LoggerScopeExtensions
             ["Scope_Host"] = context.Request.Host,
             ["Scope_Url"] = context.Request.Path + context.Request.QueryString,
             ["Scope_Id"] = Guid.NewGuid(),
-            ["Scope_CorrelationId"] = correlationId
+            ["TraceIdentifier"] = correlationId
         }.ToImmutableDictionary();
 
         Activity.Current?.AddBaggage("CorrelationId", correlationId);

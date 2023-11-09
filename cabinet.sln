@@ -7,17 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "src\WebAPI\WebAPI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1809ED5D-3502-4FAA-B12B-EE3F9CD121A7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2A658C65-594C-44C0-808F-C10F36F55779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{078389C8-7276-48F0-AB98-958F7C513E86}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{AFB92799-E91D-4F8E-A441-78E39623448A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{25CF1694-7F46-4738-8D9C-7C25E5FAFC96}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ComponentTests", "ComponentTests", "{16C28219-A8E6-4842-B60E-12B62D021A97}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{BCADCF69-24FC-4C8C-BC46-2F0ED1FE0789}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{078389C8-7276-48F0-AB98-958F7C513E86}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{253B5AC2-8564-4282-A87A-041B61C2B96A}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		prometheus\prometheus.yml = prometheus\prometheus.yml
+		prometheus\alert.rules = prometheus\alert.rules
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{559B80FB-241D-4FF1-8AA0-5E007D537FD8} = {1809ED5D-3502-4FAA-B12B-EE3F9CD121A7}
-		{AFB92799-E91D-4F8E-A441-78E39623448A} = {2A658C65-594C-44C0-808F-C10F36F55779}
-		{25CF1694-7F46-4738-8D9C-7C25E5FAFC96} = {2A658C65-594C-44C0-808F-C10F36F55779}
-		{16C28219-A8E6-4842-B60E-12B62D021A97} = {2A658C65-594C-44C0-808F-C10F36F55779}
-		{BCADCF69-24FC-4C8C-BC46-2F0ED1FE0789} = {2A658C65-594C-44C0-808F-C10F36F55779}
 		{078389C8-7276-48F0-AB98-958F7C513E86} = {1809ED5D-3502-4FAA-B12B-EE3F9CD121A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
